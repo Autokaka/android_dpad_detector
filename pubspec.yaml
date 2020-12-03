@@ -1,8 +1,8 @@
 name: android_dpad_detector
-description: A widget to automatically deal with Android DPad key event. Node that this widget is only for Android TV apps.
+description: A widget to automatically deal with Android DPad key event. Note that this widget is only for Android TV apps.
 version: 0.0.1
-author:
-homepage:
+author: Autokaka
+homepage: https://github.com/Autokaka/android_dpad_detector.git
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

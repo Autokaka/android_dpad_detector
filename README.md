@@ -1,6 +1,6 @@
 # android_dpad_detector
 
-A widget to respond to Android DPad key event. Node that this widget is only for Android TV apps.
+A widget to respond to Android DPad key event. Note that this widget is only for Android TV apps.
 
 ## How to use it?
 
@@ -25,4 +25,3 @@ AndroidDPadDetector(
 ## What is it for?
 
 It uses RegExp way to simply bypass RawKeyEvent codes in flutter service.dart, in order to make dpad key event available on Android TV apps.
-
