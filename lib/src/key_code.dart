@@ -31,8 +31,11 @@ class AndroidDPadKeyEvent {
   static int retrieveKeyCode(RawKeyEvent event) {
     String eventDataStr = event.data.toString();
     RegExp keyCodeExp = RegExp(r"keyCode: (\d*),");
-    String keyCodeStr = keyCodeExp.firstMatch(eventDataStr).group(1);
-    return int.parse(keyCodeStr);
+    String? keyCodeStr = keyCodeExp.firstMatch(eventDataStr)?.group(1);
+    if (keyCodeStr == null) {
+      return -1;
+    }
+    return int.tryParse(keyCodeStr) ?? -1;
   }
 
   static const int KEY_UP = 19;
