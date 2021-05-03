@@ -3,6 +3,7 @@ part of android_dpad_detector;
 class AndroidDPadDetector extends StatefulWidget {
   final Widget child;
   final FocusNode? focusNode;
+  final Color focusColor;
   final void Function()? onKeyLeft;
   final void Function()? onKeyUp;
   final void Function()? onKeyRight;
@@ -13,6 +14,7 @@ class AndroidDPadDetector extends StatefulWidget {
     Key? key,
     required this.child,
     this.focusNode,
+    this.focusColor = Colors.blue,
     this.onKeyLeft,
     this.onKeyUp,
     this.onKeyRight,
@@ -26,6 +28,7 @@ class AndroidDPadDetector extends StatefulWidget {
 
 class _AndroidDPadDetectorState extends State<AndroidDPadDetector> {
   late FocusNode focusNode;
+  bool hasFocus = false;
 
   @override
   void initState() {
@@ -35,8 +38,10 @@ class _AndroidDPadDetectorState extends State<AndroidDPadDetector> {
   }
 
   void didGainFocusListener() {
-    if (focusNode.hasFocus) {
-      setState(() {});
+    if (hasFocus != focusNode.hasFocus) {
+      setState(() {
+        hasFocus = focusNode.hasFocus;
+      });
     }
   }
 
@@ -52,7 +57,7 @@ class _AndroidDPadDetectorState extends State<AndroidDPadDetector> {
       child: RawKeyboardListener(
         child: Container(
           decoration: BoxDecoration(
-            border: focusNode.hasFocus
+            border: hasFocus
                 ? Border.all(
                     color: Theme.of(context).accentColor,
                   )
