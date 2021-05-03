@@ -25,6 +25,21 @@ class AndroidDPadDetector extends StatefulWidget {
 }
 
 class _AndroidDPadDetectorState extends State<AndroidDPadDetector> {
+  late FocusNode focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode = widget.focusNode ?? FocusNode();
+    focusNode.addListener(didGainFocusListener);
+  }
+
+  void didGainFocusListener() {
+    if (focusNode.hasFocus) {
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     assert(
@@ -35,7 +50,16 @@ class _AndroidDPadDetectorState extends State<AndroidDPadDetector> {
     return GestureDetector(
       onTap: () => widget.onKeyCenter?.call(),
       child: RawKeyboardListener(
-        child: widget.child,
+        child: Container(
+          decoration: BoxDecoration(
+            border: focusNode.hasFocus
+                ? Border.all(
+                    color: Theme.of(context).accentColor,
+                  )
+                : null,
+          ),
+          child: widget.child,
+        ),
         focusNode: widget.focusNode ?? FocusNode(),
         onKey: (RawKeyEvent event) {
           if (!AndroidDPadKeyEvent.match(event)) return;
@@ -59,5 +83,13 @@ class _AndroidDPadDetectorState extends State<AndroidDPadDetector> {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    focusNode.removeListener(didGainFocusListener);
+    focusNode.dispose();
+    widget.focusNode?.dispose();
+    super.dispose();
   }
 }
