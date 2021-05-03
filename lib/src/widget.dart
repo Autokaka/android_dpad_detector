@@ -60,7 +60,7 @@ class _AndroidDPadDetectorState extends State<AndroidDPadDetector> {
           ),
           child: widget.child,
         ),
-        focusNode: widget.focusNode ?? FocusNode(),
+        focusNode: focusNode,
         onKey: (RawKeyEvent event) {
           if (!AndroidDPadKeyEvent.match(event)) return;
           switch (AndroidDPadKeyEvent.retrieveKeyCode(event)) {
