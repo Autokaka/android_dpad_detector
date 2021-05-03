@@ -59,7 +59,7 @@ class _AndroidDPadDetectorState extends State<AndroidDPadDetector> {
           decoration: BoxDecoration(
             border: hasFocus
                 ? Border.all(
-                    color: Theme.of(context).accentColor,
+                    color: widget.focusColor,
                   )
                 : null,
           ),
