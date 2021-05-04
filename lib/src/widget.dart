@@ -55,16 +55,6 @@ class _AndroidDPadDetectorState extends State<AndroidDPadDetector> {
     return GestureDetector(
       onTap: () => widget.onKeyCenter?.call(),
       child: RawKeyboardListener(
-        child: Container(
-          decoration: BoxDecoration(
-            border: hasFocus
-                ? Border.all(
-                    color: widget.focusColor,
-                  )
-                : null,
-          ),
-          child: widget.child,
-        ),
         focusNode: focusNode,
         onKey: (RawKeyEvent event) {
           if (!AndroidDPadKeyEvent.match(event)) return;
@@ -86,6 +76,15 @@ class _AndroidDPadDetectorState extends State<AndroidDPadDetector> {
               break;
           }
         },
+        child: Container(
+          margin: hasFocus ? EdgeInsets.all(5) : null,
+          decoration: BoxDecoration(
+            color: hasFocus ? widget.focusColor.withOpacity(0.2) : null,
+            border: hasFocus ? Border.all(color: widget.focusColor) : null,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: widget.child,
+        ),
       ),
     );
   }
