@@ -1,6 +1,6 @@
 import 'package:example/pages/second.dart';
 import 'package:flutter/material.dart';
-import 'package:android_dpad_detector/android_dpad_detector.dart';
+import 'package:android_dpad_detector/dpad_detector.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,8 +15,8 @@ class _HomePageState extends State<HomePage> {
         title: Text("HomePage"),
       ),
       body: Center(
-        child: AndroidDPadDetector(
-          onKeyCenter: () {
+        child: DPadDetector(
+          onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => SecondPage(),

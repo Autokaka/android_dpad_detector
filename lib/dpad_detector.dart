@@ -44,28 +44,24 @@ class _DPadDetectorState extends State<DPadDetector> {
 
   @override
   Widget build(BuildContext context) {
-    return Focus(
-      focusNode: FocusNode(
-        onKey: (node, event) {
-          if (event.runtimeType != RawKeyUpEvent) {
-            return;
-          }
-          if (event.data.logicalKey.keyId == LogicalKeyboardKey.select.keyId) {
-            widget.onTap?.call();
-          }
-        },
-      ),
-      child: Focus(
-        focusNode: focusNode,
-        child: Container(
-          margin: hasFocus ? EdgeInsets.all(5) : null,
-          decoration: BoxDecoration(
-            color: hasFocus ? widget.focusColor.withOpacity(0.2) : null,
-            border: hasFocus ? Border.all(color: widget.focusColor) : null,
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: widget.child,
+    return RawKeyboardListener(
+      focusNode: focusNode,
+      onKey: (event) {
+        if (event.runtimeType != RawKeyUpEvent) {
+          return;
+        }
+        if (event.logicalKey == LogicalKeyboardKey.select) {
+          widget.onTap?.call();
+        }
+      },
+      child: Container(
+        margin: hasFocus ? EdgeInsets.all(5) : null,
+        decoration: BoxDecoration(
+          color: hasFocus ? widget.focusColor.withOpacity(0.2) : null,
+          border: hasFocus ? Border.all(color: widget.focusColor) : null,
+          borderRadius: BorderRadius.circular(5),
         ),
+        child: widget.child,
       ),
     );
   }
