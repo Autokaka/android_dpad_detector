@@ -67,24 +67,37 @@ class _DPadDetectorState extends State<DPadDetector> {
           focusNode.unfocus();
           widget.onTap?.call();
         },
-        child: CustomAnimation<double>(
-          control: hasFocus
-              ? CustomAnimationControl.play
-              : CustomAnimationControl.playReverse,
-          tween: Tween(begin: 0, end: 5),
-          builder: (context, child, value) {
-            return Container(
-              margin: EdgeInsets.all(value),
-              decoration: BoxDecoration(
-                color: widget.focusColor.withOpacity(value * 0.04),
-                border: Border.all(
-                  color: widget.focusColor.withOpacity(value / 5),
-                ),
-                borderRadius: BorderRadius.circular(value),
-              ),
-              child: widget.child,
-            );
+        child: GestureDetector(
+          onTapDown: (_) {
+            focusNode.requestFocus();
           },
+          onTapUp: (_) {
+            focusNode.unfocus();
+            widget.onTap?.call();
+          },
+          onTapCancel: () {
+            focusNode.unfocus();
+          },
+          child: CustomAnimation<double>(
+            control: hasFocus
+                ? CustomAnimationControl.play
+                : CustomAnimationControl.playReverse,
+            tween: Tween(begin: 0, end: 5),
+            duration: Duration(milliseconds: 250),
+            builder: (context, child, value) {
+              return Container(
+                margin: EdgeInsets.all(value),
+                decoration: BoxDecoration(
+                  color: widget.focusColor.withOpacity(value * 0.04),
+                  border: Border.all(
+                    color: widget.focusColor.withOpacity(value / 5),
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: widget.child,
+              );
+            },
+          ),
         ),
       ),
     );
