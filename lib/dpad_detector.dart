@@ -2,6 +2,7 @@ library dpad_detector;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:simple_animations/simple_animations.dart';
 
 part 'src/dpad_focus_group.dart';
 
@@ -54,14 +55,37 @@ class _DPadDetectorState extends State<DPadDetector> {
           widget.onTap?.call();
         }
       },
-      child: Container(
-        margin: hasFocus ? EdgeInsets.all(5) : null,
-        decoration: BoxDecoration(
-          color: hasFocus ? widget.focusColor.withOpacity(0.2) : null,
-          border: hasFocus ? Border.all(color: widget.focusColor) : null,
-          borderRadius: BorderRadius.circular(5),
+      child: GestureDetector(
+        onTapDown: (_) {
+          focusNode.requestFocus();
+        },
+        onTapUp: (_) {
+          focusNode.unfocus();
+          widget.onTap?.call();
+        },
+        onTapCancel: () {
+          focusNode.unfocus();
+          widget.onTap?.call();
+        },
+        child: CustomAnimation<double>(
+          control: hasFocus
+              ? CustomAnimationControl.play
+              : CustomAnimationControl.playReverse,
+          tween: Tween(begin: 0, end: 5),
+          builder: (context, child, value) {
+            return Container(
+              margin: EdgeInsets.all(value),
+              decoration: BoxDecoration(
+                color: widget.focusColor.withOpacity(value * 0.04),
+                border: Border.all(
+                  color: widget.focusColor.withOpacity(value / 5),
+                ),
+                borderRadius: BorderRadius.circular(value),
+              ),
+              child: widget.child,
+            );
+          },
         ),
-        child: widget.child,
       ),
     );
   }
