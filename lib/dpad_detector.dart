@@ -82,15 +82,16 @@ class _DPadDetectorState extends State<DPadDetector> {
             control: hasFocus
                 ? CustomAnimationControl.play
                 : CustomAnimationControl.playReverse,
-            tween: Tween(begin: 0, end: 5),
+            tween: Tween(begin: 0, end: 1),
             duration: Duration(milliseconds: 250),
             builder: (context, child, value) {
               return Container(
-                margin: EdgeInsets.all(value),
+                margin: EdgeInsets.all(value * 5),
                 decoration: BoxDecoration(
-                  color: widget.focusColor.withOpacity(value * 0.04),
+                  color: widget.focusColor.withOpacity(value * 0.2),
                   border: Border.all(
-                    color: widget.focusColor.withOpacity(value / 5),
+                    color: widget.focusColor.withOpacity(value),
+                    width: value,
                   ),
                   borderRadius: BorderRadius.circular(5),
                 ),
