@@ -12,6 +12,7 @@ class DPadDetector extends StatefulWidget {
   final Color focusColor;
   final double focusRadius;
   final void Function()? onTap;
+  final void Function()? onMenuTap;
 
   DPadDetector({
     Key? key,
@@ -20,6 +21,7 @@ class DPadDetector extends StatefulWidget {
     this.focusColor = Colors.blue,
     this.focusRadius = 5.0,
     this.onTap,
+    this.onMenuTap,
   }) : super(key: key);
 
   @override
@@ -55,6 +57,9 @@ class _DPadDetectorState extends State<DPadDetector> {
         }
         if (event.logicalKey == LogicalKeyboardKey.select) {
           widget.onTap?.call();
+        }
+        if (event.logicalKey == LogicalKeyboardKey.contextMenu) {
+          widget.onMenuTap?.call();
         }
       },
       child: GestureDetector(
