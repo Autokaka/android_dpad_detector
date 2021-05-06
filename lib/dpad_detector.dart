@@ -10,6 +10,7 @@ class DPadDetector extends StatefulWidget {
   final Widget child;
   final FocusNode? focusNode;
   final Color focusColor;
+  final double focusRadius;
   final void Function()? onTap;
 
   DPadDetector({
@@ -17,6 +18,7 @@ class DPadDetector extends StatefulWidget {
     required this.child,
     this.focusNode,
     this.focusColor = Colors.blue,
+    this.focusRadius = 5.0,
     this.onTap,
   }) : super(key: key);
 
@@ -86,14 +88,14 @@ class _DPadDetectorState extends State<DPadDetector> {
             duration: Duration(milliseconds: 250),
             builder: (context, child, value) {
               return Container(
-                margin: EdgeInsets.all(value * 5),
+                margin: EdgeInsets.all(value * widget.focusRadius),
                 decoration: BoxDecoration(
                   color: widget.focusColor.withOpacity(value * 0.2),
                   border: Border.all(
                     color: widget.focusColor.withOpacity(value),
                     width: value,
                   ),
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(widget.focusRadius),
                 ),
                 child: widget.child,
               );
