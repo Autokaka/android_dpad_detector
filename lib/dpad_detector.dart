@@ -88,7 +88,7 @@ class _DPadDetectorState extends State<DPadDetector> {
             duration: Duration(milliseconds: 250),
             builder: (context, child, value) {
               return Container(
-                margin: EdgeInsets.all(value * widget.focusRadius),
+                margin: EdgeInsets.all(value * 5),
                 decoration: BoxDecoration(
                   color: widget.focusColor.withOpacity(value * 0.2),
                   border: Border.all(
