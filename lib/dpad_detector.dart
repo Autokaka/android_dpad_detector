@@ -72,40 +72,27 @@ class _DPadDetectorState extends State<DPadDetector> {
         },
         onTapCancel: () {
           focusNode.unfocus();
-          widget.onTap?.call();
         },
-        child: GestureDetector(
-          onTapDown: (_) {
-            focusNode.requestFocus();
-          },
-          onTapUp: (_) {
-            focusNode.unfocus();
-            widget.onTap?.call();
-          },
-          onTapCancel: () {
-            focusNode.unfocus();
-          },
-          child: CustomAnimation<double>(
-            control: hasFocus
-                ? CustomAnimationControl.play
-                : CustomAnimationControl.playReverse,
-            tween: Tween(begin: 0, end: 1),
-            duration: Duration(milliseconds: 250),
-            builder: (context, child, value) {
-              return Container(
-                margin: EdgeInsets.all(value * 5),
-                decoration: BoxDecoration(
-                  color: widget.focusColor.withOpacity(value * 0.2),
-                  border: Border.all(
-                    color: widget.focusColor.withOpacity(value),
-                    width: value,
-                  ),
-                  borderRadius: BorderRadius.circular(widget.focusRadius),
+        child: CustomAnimation<double>(
+          control: hasFocus
+              ? CustomAnimationControl.play
+              : CustomAnimationControl.playReverse,
+          tween: Tween(begin: 0, end: 1),
+          duration: Duration(milliseconds: 250),
+          builder: (context, child, value) {
+            return Container(
+              margin: EdgeInsets.all(value * 5),
+              decoration: BoxDecoration(
+                color: widget.focusColor.withOpacity(value * 0.2),
+                border: Border.all(
+                  color: widget.focusColor.withOpacity(value),
+                  width: value,
                 ),
-                child: widget.child,
-              );
-            },
-          ),
+                borderRadius: BorderRadius.circular(widget.focusRadius),
+              ),
+              child: widget.child,
+            );
+          },
         ),
       ),
     );
