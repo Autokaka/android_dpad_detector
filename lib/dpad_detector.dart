@@ -73,6 +73,9 @@ class _DPadDetectorState extends State<DPadDetector> {
         onTapCancel: () {
           focusNode.unfocus();
         },
+        onLongPress: () {
+          widget.onMenuTap?.call();
+        },
         child: CustomAnimation<double>(
           control: hasFocus
               ? CustomAnimationControl.play
