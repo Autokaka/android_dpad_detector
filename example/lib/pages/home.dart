@@ -16,15 +16,13 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: DPadDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => SecondPage(),
-              ),
-            );
-          },
-          child: TextButton(
-            onPressed: () {},
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => SecondPage(),
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(10),
             child: Text("Launch SecondPage"),
           ),
         ),

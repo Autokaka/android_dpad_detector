@@ -13,6 +13,8 @@ class DPadDetector extends StatefulWidget {
   final double focusRadius;
   final void Function()? onTap;
   final void Function()? onMenuTap;
+  final void Function()? onVolumeUpTap;
+  final void Function()? onVolumeDownTap;
 
   DPadDetector({
     Key? key,
@@ -22,6 +24,8 @@ class DPadDetector extends StatefulWidget {
     this.focusRadius = 5.0,
     this.onTap,
     this.onMenuTap,
+    this.onVolumeUpTap,
+    this.onVolumeDownTap,
   }) : super(key: key);
 
   @override
@@ -60,6 +64,12 @@ class _DPadDetectorState extends State<DPadDetector> {
         }
         if (event.logicalKey == LogicalKeyboardKey.contextMenu) {
           widget.onMenuTap?.call();
+        }
+        if (event.logicalKey == LogicalKeyboardKey.audioVolumeUp) {
+          widget.onVolumeUpTap?.call();
+        }
+        if (event.logicalKey == LogicalKeyboardKey.audioVolumeDown) {
+          widget.onVolumeDownTap?.call();
         }
       },
       child: GestureDetector(

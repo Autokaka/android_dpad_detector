@@ -12,8 +12,11 @@ class _SecondPageState extends State<SecondPage> {
     return Scaffold(
       appBar: AppBar(
         leading: DPadDetector(
-          child: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
           onTap: Navigator.of(context).pop,
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child: Icon(Icons.arrow_back),
+          ),
         ),
         title: Text("This is a second page"),
       ),
